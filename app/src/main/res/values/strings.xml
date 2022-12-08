@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">MyActionBar</string>
+    <string name="app_name">GithubCuk 2</string>
     <string name="this_activity">Ini adalah menu activity</string>
     <string name="this_fragment">Ini adalah menu fragment</string>
     <string name="search">Search</string>
-    <string name="menu_1">Menu 1</string>
-    <string name="menu_2">Menu 2</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="menu_2">About Me</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Masukkan kata</string>
     <string name="Search">Search</string>
@@ -17,5 +16,16 @@
     <string name="content_tab_home">Welcome Home</string>
     <string name="content_tab_profile">Change your Profile here</string>
     <string name="content_tab_text">This is Tab %1$d</string>
-    <string name="data_received">received</string>
+    <string name="data_received">loading…</string>
+
+    <string name="following">following\t\t\t: %s</string>
+    <string name="follower">"follower\t\t\t\t: %s </string>
+    <string name="company">company\t\t\t: %s</string>
+    <string name="repository">repository\t\t: %s</string>
+    <string name="location">location\t\t\t\t: %s</string>
+
+    <string name="my_name">Yuda Tri ananda</string>
+    <string name="about_detail">Nama\t\t: Yuda Tri Ananda \nEmail\t\t: yudaplzhacker@gmail.com</string>
+    <string name="contact_me">contact me</string>
+    <string name="review">review</string>
 </resources>

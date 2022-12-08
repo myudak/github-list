@@ -5,23 +5,18 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.myactionbar.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        private const val TAG = "MainActivity"
-    }
+
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,34 +26,26 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.title = getString(R.string.main_title)
 
+        val mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[MainViewModel::class.java]
+        mainViewModel.restaurant.observe(this) { restaurant ->
+            setUsersData(restaurant)
+        }
+
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvReview.addItemDecoration(itemDecoration)
-    }
-    private fun findUser(param : String) {
-        showLoading(true)
-        val client = ApiConfig.getUserApiService().getUsers(param)
-        client.enqueue(object : Callback<GithubResponse> {
-            override fun onResponse(
-                call: Call<GithubResponse>,
-                response: Response<GithubResponse>
-            ) {
-                showLoading(false)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        setUsersData(responseBody.items)
-                    }
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
-                showLoading(false)
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
+
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+        mainViewModel.errorMsg.observe(this) {
+            showError(it)
+        }
     }
 
     private fun setUsersData(consumerReviews: List<ItemsItem>) {
@@ -82,8 +69,28 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
         }
     }
+    private fun showError(paramErr: String) {
+        if (paramErr == "invalid") {
+            binding.apply {
+                errorMsg.visibility = View.GONE
+                rvReview.visibility = View.VISIBLE
+            }
+        } else {
+            binding.apply {
+                rvReview.visibility = View.GONE
+                errorMsg.visibility = View.VISIBLE
+                errorMsg.text = paramErr
+            }
+
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[MainViewModel::class.java]
+
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu, menu)
 
@@ -97,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             Gunakan method ini ketika search selesai atau OK
              */
             override fun onQueryTextSubmit(query: String): Boolean {
-                findUser(query)
+                mainViewModel.findUser(query)
                 searchView.clearFocus()
                 return true
             }
@@ -106,7 +113,6 @@ class MainActivity : AppCompatActivity() {
             Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
              */
             override fun onQueryTextChange(newText: String): Boolean {
-//                findRestaurant(newText)
                 return true
             }
         })
@@ -115,13 +121,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu1 -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, MenuFragment())
-                    .addToBackStack(null)
-                    .commit()
-                return true
-            }
             R.id.menu2 -> {
                 val i = Intent(this, MenuActivity::class.java)
                 startActivity(i)

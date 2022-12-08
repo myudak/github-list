@@ -1,7 +1,6 @@
 package com.dicoding.myactionbar
 
 import android.content.Intent
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,10 @@ class ReviewAdapter(private val listReview: List<String>, private val listFull: 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val listImage = ArrayList<String>()
         val listName = ArrayList<String>()
-        val listUrl = ArrayList<String>()
 
         for (data in listFull){
             listImage.add(data.avatarUrl)
             listName.add(data.login)
-            listUrl.add(data.url)
         }
 
         Glide.with(viewHolder.tvLayout.context)
@@ -30,9 +27,6 @@ class ReviewAdapter(private val listReview: List<String>, private val listFull: 
         viewHolder.tvItem.text = listReview[position]
         viewHolder.tvLayout.setOnClickListener{v ->
             val moveWithDataIntent = Intent(v.context,DetailActivity::class.java)
-
-            moveWithDataIntent.putExtra(DetailActivity.EXTRA_IMG,listImage[position])
-            moveWithDataIntent.putExtra(DetailActivity.EXTRA_URL,listUrl[position])
             moveWithDataIntent.putExtra(DetailActivity.EXTRA_NAME,listName[position])
 
             v.context.startActivity(moveWithDataIntent)

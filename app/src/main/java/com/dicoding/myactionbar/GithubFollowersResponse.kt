@@ -2,12 +2,6 @@ package com.dicoding.myactionbar
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubFollowersResponse(
-
-	@field:SerializedName("GithubFollowersResponse")
-	val githubFollowersResponse: List<GithubFollowersResponseItem>
-)
-
 data class GithubFollowersResponseItem(
 
 	@field:SerializedName("gists_url")

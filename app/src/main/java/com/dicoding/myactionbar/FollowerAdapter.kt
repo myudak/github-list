@@ -9,18 +9,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class FollowerAdapter(private val listReview: List<String>, private val listFull: List<GithubFollowersResponseItem>) : RecyclerView.Adapter<FollowerAdapter.ViewHolder>() {
+class FollowerAdapter(private val listReview: List<String>, private val listFull: List<GithubFollowersResponseItem>?) : RecyclerView.Adapter<FollowerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_review, viewGroup, false))
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val listImage = ArrayList<String>()
         val listName = ArrayList<String>()
-        val listUrl = ArrayList<String>()
 
-        for (data in listFull){
-            listImage.add(data.avatarUrl)
-            listName.add(data.login)
-            listUrl.add(data.url)
+        if (listFull != null) {
+            for (data in listFull){
+                listImage.add(data.avatarUrl)
+                listName.add(data.login)
+            }
         }
 
         Glide.with(viewHolder.tvLayout.context)
@@ -30,8 +30,6 @@ class FollowerAdapter(private val listReview: List<String>, private val listFull
         viewHolder.tvLayout.setOnClickListener{v ->
             val moveWithDataIntent = Intent(v.context,DetailActivity::class.java)
 
-            moveWithDataIntent.putExtra(DetailActivity.EXTRA_IMG,listImage[position])
-            moveWithDataIntent.putExtra(DetailActivity.EXTRA_URL,listUrl[position])
             moveWithDataIntent.putExtra(DetailActivity.EXTRA_NAME,listName[position])
 
             v.context.startActivity(moveWithDataIntent)

@@ -11,8 +11,14 @@ interface ApiService {
         @Query("q") id : String
     ): Call<GithubResponse>
 
-    @GET("{name}/followers")
-    fun getFollowers(
+    @GET("{name}/{method}")
+    fun getFollowUsers(
+        @Path("name") name: String,
+        @Path("method") method: String
+    ): Call<List<GithubFollowersResponseItem>>
+
+    @GET("{name}")
+    fun getDetailUsers(
         @Path("name") name: String
-    ): Call<GithubFollowersResponse>
+    ): Call<GithubDetailResponse>
 }

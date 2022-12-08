@@ -24,6 +24,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/errorMsg"
+        style="@style/TextContent"
+        android:lineSpacingMultiplier="1"
+        android:text="@string/data_received"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rvReview"
+        app:layout_constraintTop_toTopOf="@+id/rvReview"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvReview"
         android:layout_width="0dp"

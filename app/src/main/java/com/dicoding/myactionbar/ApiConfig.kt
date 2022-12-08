@@ -20,7 +20,7 @@ class ApiConfig {
                 .build()
             return retrofit.create(ApiService::class.java)
         }
-        fun getFollowersApiService(): ApiService {
+        fun getUserDetailApiService(): ApiService {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
@@ -33,5 +33,6 @@ class ApiConfig {
                 .build()
             return retrofit.create(ApiService::class.java)
         }
+
     }
 }
