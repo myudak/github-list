@@ -1,4 +1,4 @@
-package com.dicoding.myactionbar
+package com.dicoding.myactionbar.api
 
 import com.google.gson.annotations.SerializedName
 

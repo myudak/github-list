@@ -4,6 +4,8 @@
     <string name="this_fragment">Ini adalah menu fragment</string>
     <string name="search">Search</string>
     <string name="menu_2">About Me</string>
+    <string name="delete">Hapus</string>
+    <string name="date">Date</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Masukkan kata</string>
@@ -28,4 +30,8 @@
     <string name="about_detail">Nama\t\t: Yuda Tri Ananda \nEmail\t\t: yudaplzhacker@gmail.com</string>
     <string name="contact_me">contact me</string>
     <string name="review">review</string>
+    <string name="menu_1">Favorite</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
+    <string name="submit">simpan</string>
 </resources>

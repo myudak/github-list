@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
+    tools:context=".FavoriteActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -43,18 +41,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-2789956367014500/4977484222"
+        android:layout_margin="16dp"
+        android:foregroundGravity="bottom"
+        app:fabSize="normal"
+        app:layout_anchorGravity="bottom|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"></com.google.android.gms.ads.AdView>
+        app:layout_constraintTop_toTopOf="@+id/rvReview"
+        app:layout_constraintVertical_bias="0.695"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
+
+
 
 
 

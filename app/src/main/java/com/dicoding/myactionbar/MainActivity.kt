@@ -5,19 +5,36 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.CompoundButton
+import android.widget.Switch
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.NavUtils
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.myactionbar.adapter.ReviewAdapter
 import com.dicoding.myactionbar.databinding.ActivityMainBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.material.switchmaterial.SwitchMaterial
+
+private const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity() {
 
 
-
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.title = getString(R.string.main_title)
+
+        MobileAds.initialize(this) {}
+        val mAdView = binding.adView
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
 
         val mainViewModel = ViewModelProvider(
             this,
@@ -46,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.errorMsg.observe(this) {
             showError(it)
         }
+
+
     }
 
     private fun setUsersData(consumerReviews: List<ItemsItem>) {
@@ -86,6 +111,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        val pref = SettingPreferences.getInstance(dataStore)
+        val switchViewModel = ViewModelProvider(this, ViewModelFactory(pref))[SwitchViewModel::class.java]
+
         val mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
@@ -93,6 +122,29 @@ class MainActivity : AppCompatActivity() {
 
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu, menu)
+
+
+
+        val switchTheme = menu.findItem(R.id.switch_action_bar).actionView?.findViewById<SwitchCompat>(R.id.switch2)
+
+        switchViewModel.getThemeSettings().observe(this
+        ) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                if (switchTheme != null) {
+                    switchTheme.isChecked = true
+                }
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                if (switchTheme != null) {
+                    switchTheme.isChecked = false
+                }
+            }
+        }
+
+        switchTheme?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            switchViewModel.saveThemeSetting(isChecked)
+        }
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
@@ -120,13 +172,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
+            R.id.menu1 -> {
+                val i = Intent(this@MainActivity, FavoriteActivity::class.java)
+                startActivity(i)
+                true
+            }
             R.id.menu2 -> {
                 val i = Intent(this, MenuActivity::class.java)
                 startActivity(i)
-                return true
+                true
             }
-            else -> return true
+            else -> true
         }
     }
 

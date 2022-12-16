@@ -1,13 +1,14 @@
 package com.dicoding.myactionbar
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.dicoding.myactionbar.api.ApiConfig
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel: ViewModel() {
+class MainViewModel() : ViewModel() {
+
 
 
     private val _restaurant = MutableLiveData<List<ItemsItem>>()

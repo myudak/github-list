@@ -1,15 +1,22 @@
 package com.dicoding.myactionbar
 
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.dicoding.myactionbar.adapter.SectionsPagerAdapter
+import com.dicoding.myactionbar.api.GithubDetailResponse
 import com.dicoding.myactionbar.databinding.ActivityDetailBinding
+import com.dicoding.myactionbar.db.DatabaseContract
+import com.dicoding.myactionbar.db.FavoriteHelper
+import com.dicoding.myactionbar.entity.Favorite
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -17,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_NAME = "name"
+        const val EXTRA_IMAGE = "image"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -26,6 +34,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var favoriteHelper: FavoriteHelper
+    private var favorite: Favorite? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +72,36 @@ class DetailActivity : AppCompatActivity() {
         }
 
         intent.getStringExtra(EXTRA_NAME)?.let { detailViewModel.findUser(it) }
-    }
+
+
+
+        binding.fabAdd.setOnClickListener {
+            val intent = Intent(this@DetailActivity, FavoriteAddUpdateActivity::class.java)
+            startActivity(intent)
+        }
+//
+        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+        favoriteHelper.open()
+        favorite = intent.getParcelableExtra(EXTRA_NAME)
+
+        binding.btnContact.setOnClickListener{
+            val values = ContentValues()
+            values.put(DatabaseContract.FavoriteColumns.NAME, intent.getStringExtra(EXTRA_NAME))
+            values.put(DatabaseContract.FavoriteColumns.IMAGE, intent.getStringExtra(EXTRA_IMAGE))
+
+
+            val result = favoriteHelper.insert(values)
+            if (result > 0) {
+                favorite?.id = result.toInt()
+            } else {
+                Toast.makeText(this@DetailActivity, "Gagal mengupdate data", Toast.LENGTH_SHORT).show()
+            }
+            val moveWithDataIntent = Intent(this@DetailActivity, FavoriteActivity::class.java)
+            startActivity(moveWithDataIntent)
+        }
+        }
 
     private fun setUsersData(userDetail: GithubDetailResponse) {
-
 
         Glide.with(binding.tvImg.context)
             .load(userDetail.avatarUrl)

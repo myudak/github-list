@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.myactionbar.adapter.FollowerAdapter
 import com.dicoding.myactionbar.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

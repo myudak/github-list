@@ -8,13 +8,17 @@
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/drawable/ic_logo_jadi_01.xml" value="0.2335" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/activity_detail.xml" value="0.21205643437366395" />
+        <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/activity_favorite.xml" value="0.21196581196581196" />
+        <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/activity_favorite_add_update.xml" value="0.21196581196581196" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/activity_menu.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/activity_splah_screen.xml" value="0.21196581196581196" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/fragment_home.xml" value="0.24094202898550723" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/fragment_menu.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/fragment_profile.xml" value="0.24094202898550723" />
-        <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/item_review.xml" value="0.72" />
+        <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/item_review.xml" value="0.4" />
+        <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/layout/use_switch.xml" value="0.2111111111111111" />
+        <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/menu/menu_form.xml" value="0.2111111111111111" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/menu/option_menu.xml" value="0.21196581196581196" />
         <entry key="..\:/Project/belajarKotlin/MyActionBar/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2335" />
       </map>

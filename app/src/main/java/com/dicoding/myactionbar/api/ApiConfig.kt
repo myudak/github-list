@@ -1,4 +1,4 @@
-package com.dicoding.myactionbar
+package com.dicoding.myactionbar.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

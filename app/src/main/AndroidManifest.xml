@@ -16,6 +16,17 @@
         android:theme="@style/Theme.MyActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".FavoriteAddUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2789956367014500~9669453997" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

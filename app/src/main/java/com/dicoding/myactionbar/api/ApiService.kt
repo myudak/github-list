@@ -1,5 +1,7 @@
-package com.dicoding.myactionbar
+package com.dicoding.myactionbar.api
 
+import com.dicoding.myactionbar.GithubFollowersResponseItem
+import com.dicoding.myactionbar.GithubResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
